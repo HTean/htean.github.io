@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insights — Alex Chen</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+.insights-layout { display: grid; grid-template-columns: 1fr 280px; gap: 48px; align-items: start; }
+
+/* filter tabs */
+.topic-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
+.topic-btn {
+  font-size: 0.67rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 6px 14px; border: 1px solid rgba(10,22,40,0.15); background: none;
+  color: var(--text-body); cursor: pointer; transition: all 0.18s; font-family: 'DM Sans', sans-serif;
+}
+.topic-btn:hover, .topic-btn.active { background: var(--navy); color: var(--gold); border-color: var(--navy); }
+
+/* article list */
+.article-list { display: flex; flex-direction: column; gap: 0; }
+.article-item {
+  display: grid; grid-template-columns: 120px 1fr;
+  gap: 0; text-decoration: none; color: inherit;
+  border-bottom: 1px solid rgba(10,22,40,0.08);
+  transition: background 0.18s;
+}
+.article-item:hover { background: var(--off-white); }
+.article-thumb {
+  height: 90px; background: var(--navy-light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; position: relative; flex-shrink: 0;
+}
+.article-source-badge {
+  position: absolute; bottom: 6px; left: 6px;
+  background: var(--gold); color: var(--navy);
+  font-size: 0.55rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 2px 6px;
+}
+.article-body { padding: 16px 20px; display: flex; flex-direction: column; justify-content: center; }
+.article-category { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 5px; }
+.article-title { font-family: 'Playfair Display', serif; font-size: 0.97rem; font-weight: 600; color: var(--navy); line-height: 1.3; margin-bottom: 6px; }
+.article-excerpt { font-size: 0.78rem; line-height: 1.55; color: var(--text-body); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.article-meta { font-size: 0.65rem; color: var(--text-muted); display: flex; gap: 12px; margin-top: 6px; flex-wrap: wrap; }
+.article-meta .ext-link { color: var(--gold); }
+
+/* featured top */
+.featured-article {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  text-decoration: none; color: inherit; margin-bottom: 0;
+  border-bottom: 1px solid rgba(10,22,40,0.08);
+  transition: background 0.18s;
+}
+.featured-article:hover { background: var(--off-white); }
+.featured-article .article-thumb { height: 100%; min-height: 180px; font-size: 4rem; }
+.featured-article .article-body { padding: 28px 28px; justify-content: flex-start; }
+.featured-article .article-title { font-size: 1.2rem; margin-bottom: 10px; }
+.featured-article .article-excerpt { -webkit-line-clamp: 3; }
+
+/* sidebar */
+.sidebar-section { margin-bottom: 36px; }
+.sidebar-title {
+  font-size: 0.65rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 14px;
+  padding-bottom: 8px; border-bottom: 1px solid rgba(10,22,40,0.1);
+}
+.sidebar-tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; }
+.stag {
+  font-size: 0.65rem; font-weight: 500; letter-spacing: 0.06em;
+  padding: 4px 10px; border: 1px solid rgba(10,22,40,0.15);
+  color: var(--text-body); cursor: pointer; transition: all 0.15s; text-transform: uppercase;
+}
+.stag:hover { border-color: var(--gold); color: var(--gold); }
+
+.sidebar-links { display: flex; flex-direction: column; gap: 2px; }
+.sidebar-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 0; border-bottom: 1px solid rgba(10,22,40,0.07);
+  text-decoration: none; font-size: 0.8rem; color: var(--text-body); transition: color 0.18s;
+}
+.sidebar-link:hover { color: var(--gold); }
+.sidebar-link:last-child { border-bottom: none; }
+.sidebar-link-icon { width: 26px; height: 26px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.68rem; font-weight: 700; color: var(--gold); flex-shrink: 0; }
+
+.newsletter-box {
+  background: var(--navy); padding: 24px; border: 1px solid var(--border);
+}
+.newsletter-box h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--white); margin-bottom: 8px; font-weight: 600; }
+.newsletter-box p { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 14px; line-height: 1.55; }
+.newsletter-box input {
+  width: 100%; background: rgba(255,255,255,0.07); border: 1px solid var(--border-light);
+  color: var(--white); padding: 9px 12px; font-size: 0.8rem; font-family: 'DM Sans', sans-serif;
+  margin-bottom: 8px; outline: none;
+}
+.newsletter-box input:focus { border-color: var(--gold); }
+.newsletter-box button {
+  width: 100%; background: var(--gold); color: var(--navy); padding: 9px;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background 0.2s;
+}
+.newsletter-box button:hover { background: var(--gold-light); }
+
+@media (max-width: 768px) {
+  .insights-layout { grid-template-columns: 1fr; }
+  .featured-article { grid-template-columns: 1fr; }
+  .featured-article .article-thumb { min-height: 120px; }
+  .article-item { grid-template-columns: 90px 1fr; }
+  .article-thumb { height: 75px; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">A<span>.</span>Chen</a>
+  <ul class="nav-links">
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="solutions.html">Solutions</a></li>
+    <li><a href="insights.html">Insights</a></li>
+    <li><a href="beyond.html">Off the Clock</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile-menu" id="navMobile">
+  <a href="projects.html">Projects</a><a href="about.html">About</a>
+  <a href="solutions.html">Solutions</a><a href="insights.html">Insights</a>
+  <a href="beyond.html">Off the Clock</a><a href="contact.html" class="mob-cta">Contact</a>
+</div>
+
+<div class="page-banner">
+  <div class="page-banner-inner">
+    <div class="page-banner-label">Perspectives</div>
+    <h1>Insights &amp; Publications</h1>
+    <p>Professional commentary, research notes, and analysis — shared on LinkedIn, GitHub, Substack, and across the web.</p>
+  </div>
+</div>
+
+<section style="background:var(--off-white);">
+  <div class="container">
+    <div class="insights-layout">
+      <!-- MAIN FEED -->
+      <div>
+        <div class="topic-tabs reveal">
+          <button class="topic-btn active" onclick="filterInsights(this,'all')">All</button>
+          <button class="topic-btn" onclick="filterInsights(this,'ai')">AI / LLMs</button>
+          <button class="topic-btn" onclick="filterInsights(this,'finance')">Finance</button>
+          <button class="topic-btn" onclick="filterInsights(this,'data')">Data Engineering</button>
+          <button class="topic-btn" onclick="filterInsights(this,'quant')">Quant</button>
+          <button class="topic-btn" onclick="filterInsights(this,'commentary')">Commentary</button>
+        </div>
+
+        <div class="article-list reveal" id="articleFeed">
+
+          <a href="#" class="featured-article" data-cat="ai finance">
+            <div class="article-thumb" style="background:linear-gradient(135deg,#0a1628 0%,#1a3a5c 100%);">
+              🤖
+              <div class="article-source-badge">LinkedIn</div>
+            </div>
+            <div class="article-body">
+              <div class="article-category">AI · Finance</div>
+              <div class="article-title">Why Most Financial AI Projects Fail Before They Ship — And How to Fix That</div>
+              <div class="article-excerpt">After advising on dozens of ML initiatives in financial services, the failure patterns are remarkably consistent. It's rarely about the model quality — it's about the data plumbing, stakeholder misalignment, and the gap between what models do in notebooks vs production...</div>
+              <div class="article-meta"><span>May 2025</span><span>8 min read</span><span class="ext-link">↗ Read on LinkedIn</span></div>
+            </div>
+          </a>
+
+          <a href="#" class="article-item" data-cat="data">
+            <div class="article-thumb" style="background:linear-gradient(135deg,#0d2137 0%,#1a4060 100%);">
+              📊<div class="article-source-badge">GitHub</div>
+            </div>
+            <div class="article-body">
+              <div class="article-category">Data Engineering</div>
+              <div class="article-title">Building a Free-Tier Real-Time Market Data Pipeline</div>
+              <div class="article-excerpt">A complete walkthrough of building a streaming market data pipeline using only free-tier cloud services — Kafka on Confluent, dbt Core, and Supabase.</div>
+              <div class="article-meta"><span>Apr 2025</span><span>12 min read</span><span class="ext-link">↗ GitHub</span></div>
+            </div>
+          </a>
+
+          <a href="#" class="article-item" data-cat="quant finance">
+            <div class="article-thumb" style="background:linear-gradient(135deg,#1a2a0d 0%,#2d4a1e 100%);">
+              📈<div class="article-source-badge">Substack</div>
+            </div>
+            <div class="article-body">
+              <div class="article-category">Quant Finance</div>
+              <div class="article-title">Alternative Data Is Mainstream Now. Here's What's Actually Still Alpha.</div>
+              <div class="article-excerpt">Satellite imagery, credit card transactions, web scraping — everyone's using them. So where does genuine informational edge come from in 2025?</div>
+              <div class="article-meta"><span>Mar 2025</span><span>6 min read</span><span class="ext-link">↗ Substack</span></div>
+            </div>
+          </a>
+
+          <a href="#" class="article-item" data-cat="ai">
+            <div class="article-thumb" style="background:linear-gradient(135deg,#1a0d2a 0%,#3a1a50 100%);">
+              🔗<div class="article-source-badge">LinkedIn</div>
+            </div>
+            <div class="article-body">
+              <div class="article-category">AI Tools</div>
+              <div class="article-title">The RAG Stack I Actually Use in Production (2025)</div>
+              <div class="article-excerpt">Benchmarked 8 different retrieval-augmented generation stacks. Here's what survived contact with real enterprise documents and user queries.</div>
+              <div class="article-meta"><span>Feb 2025</span><span>5 min read</span><span class="ext-link">↗ LinkedIn</span></div>
+            </div>
+          </a>
+
+          <a href="#" class="article-item" data-cat="commentary finance">
+            <div class="article-thumb" style="background:linear-gradient(135deg,#1a1000 0%,#3d2800 100%);">
+              💹<div class="article-source-badge">Comment</div>
+            </div>
+            <div class="article-body">
+              <div class="article-category">Commentary · Bloomberg</div>
+              <div class="article-title">Where Generative AI Actually Fits in Quantitative Strategies</div>
+              <div class="article-excerpt">My commentary on a Bloomberg piece about AI in quant funds — the hype is real but so are the legitimate use cases, if you know where to look.</div>
+              <div class="article-meta"><span>Jan 2025</span><span>3 min read</span><span class="ext-link">↗ Read</span></div>
+            </div>
+          </a>
+
+          <a href="#" class="article-item" data-cat="data">
+            <div class="article-thumb" style="background:linear-gradient(135deg,#001a15 0%,#003328 100%);">
+              🏗<div class="article-source-badge">GitHub</div>
+            </div>
+            <div class="article-body">
+              <div class="article-category">Data Engineering</div>
+              <div class="article-title">dbt Patterns I Wish I'd Learned Earlier</div>
+              <div class="article-excerpt">After 3 years of production dbt usage, here are the modeling patterns and testing strategies that would have saved me hundreds of debugging hours.</div>
+              <div class="article-meta"><span>Dec 2024</span><span>9 min read</span><span class="ext-link">↗ GitHub</span></div>
+            </div>
+          </a>
+
+          <a href="#" class="article-item" data-cat="ai quant">
+            <div class="article-thumb" style="background:linear-gradient(135deg,#0a0a1a 0%,#1a1a3a 100%);">
+              🧠<div class="article-source-badge">LinkedIn</div>
+            </div>
+            <div class="article-body">
+              <div class="article-category">AI · Quant Research</div>
+              <div class="article-title">Can LLMs Replace Traditional Signal Research? A Practitioner's View</div>
+              <div class="article-excerpt">Tested 4 approaches to using LLMs for signal generation on historical data. The results were more nuanced — and more interesting — than I expected.</div>
+              <div class="article-meta"><span>Nov 2024</span><span>7 min read</span><span class="ext-link">↗ LinkedIn</span></div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="reveal" style="transition-delay:0.15s;">
+
+        <div class="newsletter-box" style="margin-bottom:32px;">
+          <h4>Stay in the Loop</h4>
+          <p>New insights on data, AI, and finance — delivered to your inbox when I publish.</p>
+          <input type="email" placeholder="your@email.com">
+          <button onclick="alert('Subscribed!')">Subscribe →</button>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-title">Find Me On</div>
+          <div class="sidebar-links">
+            <a href="#" class="sidebar-link"><div class="sidebar-link-icon">in</div> LinkedIn</a>
+            <a href="#" class="sidebar-link"><div class="sidebar-link-icon">gh</div> GitHub</a>
+            <a href="#" class="sidebar-link"><div class="sidebar-link-icon">S</div> Substack</a>
+            <a href="#" class="sidebar-link"><div class="sidebar-link-icon">✉</div> Email Newsletter</a>
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-title">Topics</div>
+          <div class="sidebar-tag-cloud">
+            <span class="stag">AI / LLMs</span>
+            <span class="stag">Machine Learning</span>
+            <span class="stag">Quant Finance</span>
+            <span class="stag">Data Engineering</span>
+            <span class="stag">Risk Analytics</span>
+            <span class="stag">Python</span>
+            <span class="stag">dbt</span>
+            <span class="stag">Commentary</span>
+            <span class="stag">Career</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="index.html" class="footer-logo">Alex <span>Chen</span></a>
+  <div class="footer-copy">© 2025 Alex Chen. All rights reserved.</div>
+  <div class="footer-social"><a href="#">in</a><a href="#">gh</a><a href="#">✉</a></div>
+</footer>
+<script src="nav.js"></script>
+<script>
+function filterInsights(btn, cat) {
+  document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#articleFeed [data-cat]').forEach(item => {
+    const cats = item.getAttribute('data-cat') || '';
+    item.style.display = (cat === 'all' || cats.includes(cat)) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>

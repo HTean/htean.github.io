@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solutions — Alex Chen</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* hero services grid */
+.services-grid {
+  display: grid; grid-template-columns: repeat(2,1fr);
+  gap: 1px; background: var(--border);
+}
+.svc-card {
+  background: var(--navy-mid); padding: 48px 40px;
+  transition: background 0.22s; position: relative;
+}
+.svc-card:hover { background: var(--navy-light); }
+.svc-icon {
+  width: 44px; height: 44px; border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px; color: var(--gold); font-size: 1.2rem;
+}
+.svc-name { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 600; color: var(--white); margin-bottom: 10px; }
+.svc-desc { font-size: 0.87rem; line-height: 1.65; color: var(--text-muted); margin-bottom: 20px; }
+.svc-list { list-style: none; margin-bottom: 20px; }
+.svc-list li {
+  font-size: 0.8rem; color: rgba(255,255,255,0.6);
+  padding: 5px 0; border-bottom: 1px solid var(--border-light);
+  display: flex; align-items: center; gap: 8px;
+}
+.svc-list li::before { content: '—'; color: var(--gold); font-size: 0.7rem; }
+.svc-list li:last-child { border-bottom: none; }
+.svc-examples {
+  font-size: 0.74rem; color: var(--gold); font-style: italic;
+  border-top: 1px solid var(--border-light); padding-top: 14px; line-height: 1.6;
+}
+
+/* process section */
+#process { background: var(--off-white); }
+.process-steps {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 0;
+  counter-reset: step;
+}
+.step {
+  padding: 40px 28px; border-right: 1px solid rgba(184,151,90,0.15);
+  counter-increment: step; position: relative;
+}
+.step:last-child { border-right: none; }
+.step-num {
+  font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700;
+  color: rgba(184,151,90,0.15); line-height: 1; margin-bottom: 16px;
+}
+.step-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 600; color: var(--navy); margin-bottom: 8px; }
+.step-desc { font-size: 0.82rem; line-height: 1.6; color: var(--text-body); }
+
+/* engagement models */
+#engage { background: var(--white); }
+.engage-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+.engage-card {
+  border: 1px solid rgba(10,22,40,0.1); padding: 36px 28px;
+  position: relative; transition: all 0.22s;
+}
+.engage-card:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(10,22,40,0.08); }
+.engage-card.recommended {
+  border-color: var(--gold); background: linear-gradient(160deg, rgba(184,151,90,0.04) 0%, transparent 60%);
+}
+.engage-badge {
+  position: absolute; top: -1px; right: 20px;
+  background: var(--gold); color: var(--navy); font-size: 0.58rem;
+  font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px;
+}
+.engage-name { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+.engage-price { font-size: 0.78rem; color: var(--gold); margin-bottom: 16px; font-weight: 500; }
+.engage-desc { font-size: 0.83rem; line-height: 1.6; color: var(--text-body); margin-bottom: 18px; }
+.engage-features { list-style: none; }
+.engage-features li { font-size: 0.8rem; color: var(--text-body); padding: 5px 0; display: flex; gap: 8px; align-items: flex-start; }
+.engage-features li::before { content: '✓'; color: var(--gold); font-size: 0.75rem; margin-top: 1px; flex-shrink: 0; }
+
+@media (max-width: 768px) {
+  .services-grid { grid-template-columns: 1fr; }
+  .process-steps { grid-template-columns: 1fr 1fr; }
+  .step { border-right: none; border-bottom: 1px solid rgba(184,151,90,0.15); }
+  .step:last-child { border-bottom: none; }
+  .engage-grid { grid-template-columns: 1fr; }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .process-steps { grid-template-columns: repeat(2,1fr); }
+  .engage-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">A<span>.</span>Chen</a>
+  <ul class="nav-links">
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="solutions.html">Solutions</a></li>
+    <li><a href="insights.html">Insights</a></li>
+    <li><a href="beyond.html">Off the Clock</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile-menu" id="navMobile">
+  <a href="projects.html">Projects</a><a href="about.html">About</a>
+  <a href="solutions.html">Solutions</a><a href="insights.html">Insights</a>
+  <a href="beyond.html">Off the Clock</a><a href="contact.html" class="mob-cta">Contact</a>
+</div>
+
+<div class="page-banner" style="background:var(--navy);">
+  <div class="page-banner-inner">
+    <div class="page-banner-label">What I Offer</div>
+    <h1>Solutions &amp; Services</h1>
+    <p>From independent engagements to embedded team partnerships — here is what I can design, build, and deliver for you.</p>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section style="background:var(--navy); padding-top:0;">
+  <div class="container">
+    <div class="services-grid reveal" data-stagger>
+
+      <div class="svc-card">
+        <div class="svc-icon">⬡</div>
+        <div class="svc-name">Data Analytics &amp; Modeling</div>
+        <p class="svc-desc">End-to-end analytical solutions — from exploratory analysis and statistical inference to production-grade predictive models. I translate messy data into boardroom-ready insights.</p>
+        <ul class="svc-list">
+          <li>Predictive &amp; prescriptive modeling</li>
+          <li>Statistical analysis &amp; hypothesis testing</li>
+          <li>Interactive dashboards &amp; data visualization</li>
+          <li>A/B testing &amp; experimentation design</li>
+          <li>Time-series forecasting</li>
+        </ul>
+        <div class="svc-examples">Examples: Customer churn model (86% acc.) · Demand forecasting for retail · Risk scoring for P2P lending</div>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-icon">⟁</div>
+        <div class="svc-name">AI &amp; LLM Workflow Automation</div>
+        <p class="svc-desc">Design and deploy AI-powered pipelines using the latest LLM infrastructure. RAG systems, AI agents, intelligent document processing, and workflow orchestration that actually ship.</p>
+        <ul class="svc-list">
+          <li>RAG systems &amp; knowledge bases</li>
+          <li>Autonomous AI agents &amp; multi-agent systems</li>
+          <li>Document parsing &amp; intelligent extraction</li>
+          <li>LLM fine-tuning &amp; prompt engineering</li>
+          <li>AI integration into existing workflows</li>
+        </ul>
+        <div class="svc-examples">Examples: Financial report summarizer · Automated RFP system · Compliance document screener</div>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-icon">◈</div>
+        <div class="svc-name">Data Management &amp; Engineering</div>
+        <p class="svc-desc">Modern data stack architecture: data warehousing, ETL/ELT pipelines, governance frameworks, and data quality systems. I build infrastructure that scales with your ambition.</p>
+        <ul class="svc-list">
+          <li>Data warehouse design &amp; migration</li>
+          <li>ETL/ELT pipeline development</li>
+          <li>Data governance &amp; metadata management</li>
+          <li>Data quality monitoring &amp; alerting</li>
+          <li>Real-time streaming pipelines</li>
+        </ul>
+        <div class="svc-examples">Examples: Snowflake migration (50M+ rows) · Data catalog implementation · Kafka + dbt pipeline</div>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-icon">◇</div>
+        <div class="svc-name">Web &amp; Data Product Development</div>
+        <p class="svc-desc">Full-stack web applications centered on data: interactive dashboards, analytical platforms, SaaS tools, and professional websites. Beautiful, functional, and built to last.</p>
+        <ul class="svc-list">
+          <li>Interactive analytics dashboards</li>
+          <li>Data-driven web applications</li>
+          <li>Professional portfolio &amp; company websites</li>
+          <li>API design &amp; backend development</li>
+          <li>Cloud deployment &amp; DevOps</li>
+        </ul>
+        <div class="svc-examples">Examples: ESG analytics platform · This website · Real-time options flow dashboard</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="container">
+    <div class="section-label reveal">How I Work</div>
+    <h2 class="section-title reveal">Engagement Process</h2>
+    <p class="section-subtitle reveal">A structured, collaborative approach that ensures we solve the right problem — and deliver results that last.</p>
+    <div class="process-steps reveal" data-stagger>
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-name">Discovery</div>
+        <p class="step-desc">Understanding your business context, data landscape, and success criteria. I ask the hard questions before writing a single line of code.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-name">Design</div>
+        <p class="step-desc">Scoping the solution architecture, selecting tools and frameworks, and aligning on deliverables, timeline, and metrics.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-name">Build</div>
+        <p class="step-desc">Iterative development with regular check-ins. You see progress weekly — no black boxes, no surprises at delivery.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-name">Deploy &amp; Handoff</div>
+        <p class="step-desc">Production deployment, documentation, knowledge transfer, and post-launch support. You own what we build together.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENGAGEMENT MODELS -->
+<section id="engage">
+  <div class="container">
+    <div class="section-label reveal">Engagement Models</div>
+    <h2 class="section-title reveal">Ways to Work Together</h2>
+    <p class="section-subtitle reveal">Flexible engagement structures to match your needs — whether you need a quick sprint or a long-term partner.</p>
+    <div class="engage-grid reveal" data-stagger>
+
+      <div class="engage-card">
+        <div class="engage-name">Project Sprint</div>
+        <div class="engage-price">Defined scope · Fixed timeline</div>
+        <p class="engage-desc">Best for well-defined deliverables: a dashboard, a model, a pipeline, or a website. Scoped upfront, delivered in weeks.</p>
+        <ul class="engage-features">
+          <li>Defined deliverables &amp; milestones</li>
+          <li>2–8 week typical timeline</li>
+          <li>Fixed-price or time &amp; materials</li>
+          <li>Full documentation included</li>
+          <li>30-day post-delivery support</li>
+        </ul>
+      </div>
+
+      <div class="engage-card recommended">
+        <div class="engage-badge">Most Popular</div>
+        <div class="engage-name">Retained Partnership</div>
+        <div class="engage-price">Monthly retainer · Ongoing</div>
+        <p class="engage-desc">An embedded data science partner for teams that need consistent, high-quality analytical and AI capability without a full-time hire.</p>
+        <ul class="engage-features">
+          <li>Dedicated monthly hours</li>
+          <li>Priority response &amp; availability</li>
+          <li>Roadmap &amp; strategy collaboration</li>
+          <li>Multiple concurrent workstreams</li>
+          <li>Quarterly business reviews</li>
+        </ul>
+      </div>
+
+      <div class="engage-card">
+        <div class="engage-name">Advisory &amp; Consulting</div>
+        <div class="engage-price">Hourly or day-rate</div>
+        <p class="engage-desc">Strategic guidance for data strategy, AI roadmaps, team structure, or technical due diligence. No implementation required.</p>
+        <ul class="engage-features">
+          <li>Architecture &amp; tech stack reviews</li>
+          <li>Data strategy workshops</li>
+          <li>AI readiness assessments</li>
+          <li>Due diligence support</li>
+          <li>Flexible scheduling</li>
+        </ul>
+      </div>
+
+    </div>
+    <div style="text-align:center;margin-top:40px;" class="reveal">
+      <a href="contact.html" class="btn-primary">Start a Conversation →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="index.html" class="footer-logo">Alex <span>Chen</span></a>
+  <div class="footer-copy">© 2025 Alex Chen. All rights reserved.</div>
+  <div class="footer-social"><a href="#">in</a><a href="#">gh</a><a href="#">✉</a></div>
+</footer>
+<script src="nav.js"></script>
+</body>
+</html>
