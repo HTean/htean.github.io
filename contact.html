@@ -163,29 +163,46 @@
       <div class="contact-form-box reveal" style="transition-delay:0.12s;">
         <div class="form-title">Send a Message</div>
         <div class="form-subtitle">Tell me about your project or opportunity and I'll get back to you promptly.</div>
-        <div class="form-row">
-          <div class="form-group"><label>First Name</label><input type="text" placeholder="John"></div>
-          <div class="form-group"><label>Last Name</label><input type="text" placeholder="Smith"></div>
+ 
+        <!-- SUCCESS STATE (hidden by default) -->
+        <div id="formSuccess" style="display:none; text-align:center; padding: 40px 0;">
+          <div style="font-size:2.5rem; margin-bottom:16px;">✓</div>
+          <div style="font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--white); margin-bottom:8px;">Message Received</div>
+          <div style="font-size:0.82rem; color:var(--text-muted); line-height:1.6;">Thanks for reaching out. I'll be in touch within 24–48 hours.</div>
+          <button onclick="resetForm()" style="margin-top:24px; background:transparent; border:1px solid var(--border); color:var(--text-muted); padding:8px 20px; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; cursor:pointer; font-family:'DM Sans',sans-serif;">Send Another</button>
         </div>
-        <div class="form-group"><label>Email</label><input type="email" placeholder="john@company.com"></div>
-        <div class="form-group"><label>Company / Organization</label><input type="text" placeholder="Optional"></div>
-        <div class="form-group">
-          <label>Inquiry Type</label>
-          <select>
-            <option value="">Select one…</option>
-            <option>Freelance / Contract Engagement</option>
-            <option>Full-Time Opportunity</option>
-            <option>Advisory / Consulting</option>
-            <option>Speaking / Podcast</option>
-            <option>Collaboration</option>
-            <option>General Inquiry</option>
-          </select>
+ 
+        <!-- ERROR STATE (hidden by default) -->
+        <div id="formError" style="display:none; background:rgba(220,50,50,0.1); border:1px solid rgba(220,50,50,0.3); padding:14px 16px; margin-bottom:16px; font-size:0.82rem; color:#ff8080; line-height:1.5;">
+          Something went wrong — please try again, or email me directly at <a href="mailto:lhtsas07@gmail.com" style="color:var(--gold);">lhtsas07@gmail.com</a>
         </div>
-        <div class="form-group"><label>Message</label><textarea placeholder="Tell me about your project, team, timeline, or what you're looking for…"></textarea></div>
-        <button class="form-submit" onclick="alert('Message sent! I\'ll be in touch within 48 hours.')">Send Message →</button>
-        <div class="form-note">No spam, no sharing. I read every message personally.</div>
+ 
+        <!-- FORM -->
+        <form id="contactForm" style="margin:0;">
+          <div class="form-row">
+            <div class="form-group"><label>First Name *</label><input type="text" name="firstName" placeholder="John" required></div>
+            <div class="form-group"><label>Last Name *</label><input type="text" name="lastName" placeholder="Smith" required></div>
+          </div>
+          <div class="form-group"><label>Email *</label><input type="email" name="email" placeholder="john@company.com" required></div>
+          <div class="form-group"><label>Company / Organization</label><input type="text" name="company" placeholder="Optional"></div>
+          <div class="form-group">
+            <label>Inquiry Type</label>
+            <select name="inquiryType">
+              <option value="">Select one…</option>
+              <option>Freelance / Contract Engagement</option>
+              <option>Full-Time Opportunity</option>
+              <option>Advisory / Consulting</option>
+              <option>Speaking / Podcast</option>
+              <option>Collaboration</option>
+              <option>General Inquiry</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Message *</label><textarea name="message" placeholder="Tell me about your project, team, timeline, or what you're looking for…" required></textarea></div>
+          <button type="submit" class="form-submit" id="submitBtn">Send Message →</button>
+          <div class="form-note">No spam, no sharing. I read every message personally.</div>
+        </form>
       </div>
-
+ 
     </div>
   </div>
 </section>
@@ -196,5 +213,71 @@
   <div class="footer-social"><a href="https://www.linkedin.com/in/tean-lu/">in</a><a href="https://github.com/HTean">gh</a><a href="mailto:lhtsas07@gmail.com">✉</a></div>
 </footer>
 <script src="nav.js"></script>
+<script>
+// ─── FORMSPREE FORM SUBMISSION ───
+const FORMSPREE_ID = 'mwvzojpy';
+ 
+const form = document.getElementById('contactForm');
+const submitBtn = document.getElementById('submitBtn');
+const successEl = document.getElementById('formSuccess');
+const errorEl = document.getElementById('formError');
+ 
+form.addEventListener('submit', async function(e) {
+  e.preventDefault();
+ 
+  // Check ID is set
+  if (FORMSPREE_ID === 'mwvzojpy') {
+    errorEl.innerHTML = '⚠️ Form not configured yet. <a href="https://formspree.io" target="_blank" style="color:var(--gold);">Set up Formspree</a> and add your form ID to contact.html.';
+    errorEl.style.display = 'block';
+    return;
+  }
+ 
+  // Loading state
+  submitBtn.textContent = 'Sending…';
+  submitBtn.disabled = true;
+  errorEl.style.display = 'none';
+ 
+  // Collect form data
+  const data = {
+    firstName: form.firstName.value,
+    lastName:  form.lastName.value,
+    email:     form.email.value,
+    company:   form.company.value,
+    inquiryType: form.inquiryType.value,
+    message:   form.message.value,
+  };
+ 
+  try {
+    const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data),
+    });
+ 
+    if (res.ok) {
+      // Show success, hide form
+      form.style.display = 'none';
+      successEl.style.display = 'block';
+    } else {
+      const json = await res.json();
+      throw new Error(json.errors ? json.errors.map(e => e.message).join(', ') : 'Submission failed');
+    }
+  } catch (err) {
+    errorEl.innerHTML = `Something went wrong (${err.message}) — please email me directly at <a href="mailto:lhtsas07@gmail.com" style="color:var(--gold);">lhtsas07@gmail.com</a>`;
+    errorEl.style.display = 'block';
+    submitBtn.textContent = 'Send Message →';
+    submitBtn.disabled = false;
+  }
+});
+ 
+function resetForm() {
+  form.reset();
+  form.style.display = 'block';
+  successEl.style.display = 'none';
+  errorEl.style.display = 'none';
+  submitBtn.textContent = 'Send Message →';
+  submitBtn.disabled = false;
+}
+</script>
 </body>
 </html>
