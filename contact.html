@@ -226,7 +226,7 @@ form.addEventListener('submit', async function(e) {
   e.preventDefault();
  
   // Check ID is set
-  if (FORMSPREE_ID === 'mwvzojpy') {
+  if (FORMSPREE_ID === '') {
     errorEl.innerHTML = '⚠️ Form not configured yet. <a href="https://formspree.io" target="_blank" style="color:var(--gold);">Set up Formspree</a> and add your form ID to contact.html.';
     errorEl.style.display = 'block';
     return;
