@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../Images/hl-favicon.svg">
+<!-- ★ CHANGE: Update the title -->
+<title>PROJECT TITLE — Haotian Lu</title>
+<link rel="stylesheet" href="../shared.css">
+<style>
+.article-layout { display: grid; grid-template-columns: 1fr 280px; gap: 56px; align-items: start; }
+
+/* hero image */
+.article-hero {
+  width: 100%; aspect-ratio: 16/7; overflow: hidden;
+  background: var(--navy-light); margin-bottom: 0; position: relative;
+}
+.article-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.article-hero-placeholder {
+  width: 100%; height: 100%; display: flex; align-items: center;
+  justify-content: center; font-size: 5rem;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+}
+
+/* article body */
+.article-body { padding: 48px 0; }
+.article-meta-row {
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  margin-bottom: 28px; padding-bottom: 24px;
+  border-bottom: 1px solid rgba(10,22,40,0.08);
+}
+.article-date { font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.06em; }
+.article-tag { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+.article-readtime { font-size: 0.72rem; color: var(--text-muted); }
+
+.article-h1 {
+  font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 700; color: var(--navy); line-height: 1.15; margin-bottom: 16px;
+}
+.article-lead {
+  font-size: 1.05rem; line-height: 1.72; color: #3a4858; margin-bottom: 36px;
+  font-family: 'Libre Baskerville', serif; font-style: italic;
+  border-left: 3px solid var(--gold); padding-left: 20px;
+}
+.article-body h2 {
+  font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700;
+  color: var(--navy); margin: 40px 0 14px;
+}
+.article-body h3 {
+  font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600;
+  color: var(--navy); margin: 28px 0 10px;
+}
+.article-body p { font-size: 0.95rem; line-height: 1.78; color: var(--text-body); margin-bottom: 18px; }
+.article-body ul, .article-body ol { padding-left: 20px; margin-bottom: 18px; }
+.article-body li { font-size: 0.93rem; line-height: 1.7; color: var(--text-body); margin-bottom: 6px; }
+.article-body a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(184,151,90,0.3); }
+.article-body a:hover { border-color: var(--gold); }
+
+/* image blocks inside article */
+.article-img { width: 100%; margin: 32px 0; overflow: hidden; }
+.article-img img { width: 100%; display: block; }
+.article-img.half { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.article-img figcaption { font-size: 0.74rem; color: var(--text-muted); margin-top: 8px; text-align: center; font-style: italic; }
+
+/* tech stack chips */
+.tech-stack { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0; }
+.tech-chip {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 5px 12px; background: var(--off-white); border: 1px solid rgba(10,22,40,0.12);
+  color: var(--navy);
+}
+
+/* result metrics */
+.metrics-row { display: flex; gap: 0; margin: 32px 0; background: var(--navy); }
+.metric {
+  flex: 1; padding: 24px 20px; text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.06);
+}
+.metric:last-child { border-right: none; }
+.metric-num { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 700; color: var(--gold); line-height: 1; }
+.metric-label { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 5px; }
+
+/* live link button */
+.live-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--gold); color: var(--navy);
+  padding: 12px 24px; font-size: 0.76rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  text-decoration: none; border: none; margin: 8px 8px 8px 0;
+  transition: background 0.2s;
+}
+.live-btn:hover { background: var(--gold-light); border-bottom: none; }
+.live-btn.outline {
+  background: transparent; color: var(--navy); border: 1px solid rgba(10,22,40,0.2);
+}
+.live-btn.outline:hover { border-color: var(--gold); color: var(--gold); }
+
+/* sidebar */
+.article-sidebar { position: sticky; top: 84px; }
+.sidebar-box {
+  background: var(--off-white); padding: 24px; margin-bottom: 20px;
+  border-left: 3px solid var(--gold);
+}
+.sidebar-box-title { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+.sidebar-box p { font-size: 0.82rem; line-height: 1.6; color: var(--text-body); margin-bottom: 0; }
+.sidebar-tech { display: flex; flex-wrap: wrap; gap: 5px; }
+.sidebar-tag { font-size: 0.62rem; padding: 3px 8px; border: 1px solid rgba(10,22,40,0.12); color: #6a7888; text-transform: uppercase; }
+
+/* back link */
+.back-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-muted); text-decoration: none; margin-bottom: 32px;
+  transition: color 0.2s;
+}
+.back-link:hover { color: var(--gold); }
+.back-link::before { content: '←'; }
+
+/* next/prev nav */
+.project-nav {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: rgba(184,151,90,0.15); margin-top: 64px;
+  border-top: 2px solid var(--gold);
+}
+.project-nav a {
+  background: var(--white); padding: 24px 28px;
+  text-decoration: none; color: inherit; transition: background 0.2s;
+}
+.project-nav a:hover { background: var(--off-white); }
+.project-nav .pnav-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+.project-nav .pnav-title { font-family: 'Playfair Display', serif; font-size: 0.97rem; font-weight: 600; color: var(--navy); }
+.project-nav a:last-child { text-align: right; }
+
+@media (max-width: 768px) {
+  .article-layout { grid-template-columns: 1fr; }
+  .article-sidebar { position: static; }
+  .metrics-row { flex-direction: column; }
+  .metric { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .project-nav { grid-template-columns: 1fr; }
+  .article-img.half { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="nav-logo">H<span>.</span>Lu</a>
+  <ul class="nav-links">
+    <li><a href="../projects.html">Projects</a></li>
+    <li><a href="../about.html">About</a></li>
+    <li><a href="../solutions.html">Solutions</a></li>
+    <li><a href="../insights.html">Insights</a></li>
+    <li><a href="../beyond.html">Off the Clock</a></li>
+    <li><a href="../contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile-menu" id="navMobile">
+  <a href="../projects.html">Projects</a><a href="../about.html">About</a>
+  <a href="../solutions.html">Solutions</a><a href="../insights.html">Insights</a>
+  <a href="../beyond.html">Off the Clock</a><a href="../contact.html" class="mob-cta">Contact</a>
+</div>
+
+<!-- ★ CHANGE: Replace emoji with your screenshot: <img src="../Images/projects/yourimage.jpg" alt="Project Name"> -->
+<div class="article-hero">
+  <div class="article-hero-placeholder">🚀</div>
+</div>
+
+<section style="background:var(--white); padding-top:0;">
+  <div class="container">
+    <div class="article-layout">
+
+      <!-- MAIN ARTICLE -->
+      <div class="article-body">
+        <a href="../projects.html" class="back-link">All Projects</a>
+
+        <div class="article-meta-row">
+          <span class="article-tag">★ CATEGORY</span>  <!-- ★ CHANGE -->
+          <span class="article-date">★ Month Year</span>  <!-- ★ CHANGE -->
+          <span class="article-readtime">★ X min read</span>  <!-- ★ CHANGE -->
+        </div>
+
+        <!-- ★ CHANGE: Project title -->
+        <h1 class="article-h1">Your Project Title Here</h1>
+
+        <!-- ★ CHANGE: One-sentence hook -->
+        <p class="article-lead">A compelling one-sentence description of what this project does and why it matters.</p>
+
+        <!-- ★ CHANGE: Fill in sections below. Delete sections you don't need. -->
+
+        <h2>The Problem</h2>
+        <p>Describe the problem or opportunity that motivated this project. What gap existed? What pain point were you solving?</p>
+
+        <h2>What I Built</h2>
+        <p>Explain what the project is and how it works at a high level. Write for an intelligent non-technical reader first.</p>
+
+        <!-- ★ Add screenshot: save image to Images/projects/ and update src -->
+        <figure class="article-img">
+          <img src="../Images/projects/YOUR-IMAGE.jpg" alt="Screenshot description">
+          <figcaption>Caption describing what this screenshot shows</figcaption>
+        </figure>
+
+        <h2>Technical Approach</h2>
+        <p>Go deeper on the technical implementation. What was interesting or challenging about how you built it?</p>
+
+        <div class="tech-stack">
+          <span class="tech-chip">★ Tech 1</span>
+          <span class="tech-chip">★ Tech 2</span>
+          <span class="tech-chip">★ Tech 3</span>
+        </div>
+
+        <h2>Results &amp; Impact</h2>
+        <p>What did it achieve? Quantify outcomes where possible.</p>
+
+        <!-- ★ CHANGE: Update numbers and labels, or delete this block -->
+        <div class="metrics-row">
+          <div class="metric"><div class="metric-num">★ 0</div><div class="metric-label">Metric One</div></div>
+          <div class="metric"><div class="metric-num">★ 0%</div><div class="metric-label">Metric Two</div></div>
+          <div class="metric"><div class="metric-num">★ 0x</div><div class="metric-label">Metric Three</div></div>
+        </div>
+
+        <h2>Reflections</h2>
+        <p>What would you do differently? What did you learn? What's next for this project?</p>
+
+        <!-- ★ CHANGE: Update href to live URL, or delete if no live link -->
+        <a href="https://YOUR-LIVE-URL.com" target="_blank" class="live-btn">View Live Site ↗</a>
+        <a href="../contact.html" class="live-btn outline">Work With Me →</a>
+
+        <!-- ★ CHANGE: Update prev/next links -->
+        <div class="project-nav">
+          <a href="PREVIOUS-PROJECT.html">
+            <div class="pnav-label">← Previous</div>
+            <div class="pnav-title">Previous Project Name</div>
+          </a>
+          <a href="NEXT-PROJECT.html">
+            <div class="pnav-label">Next →</div>
+            <div class="pnav-title">Next Project Name</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="article-sidebar reveal">
+        <div class="sidebar-box">
+          <div class="sidebar-box-title">At a Glance</div>
+          <p><strong>Type:</strong> ★ Project type<br>
+          <strong>Year:</strong> ★ 20XX<br>
+          <strong>Status:</strong> ★ Live / In Progress / Completed<br>
+          <strong>Role:</strong> ★ Solo / Lead / Contributor</p>
+        </div>
+        <div class="sidebar-box">
+          <div class="sidebar-box-title">Tech Stack</div>
+          <div class="sidebar-tech">
+            <span class="sidebar-tag">★ Tech 1</span>
+            <span class="sidebar-tag">★ Tech 2</span>
+          </div>
+        </div>
+        <div class="sidebar-box">
+          <div class="sidebar-box-title">Links</div>
+          <p>
+            <!-- ★ CHANGE: Add real links -->
+            <a href="#">Live Site ↗</a><br>
+            <a href="#">GitHub Repo ↗</a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="../index.html" class="footer-logo">Haotian <span>Lu</span></a>
+  <div class="footer-copy">© 2025 Haotian Lu. All rights reserved.</div>
+  <div class="footer-social"><a href="#">in</a><a href="#">gh</a><a href="#">✉</a></div>
+</footer>
+<script src="../nav.js"></script>
+</body>
+</html>
