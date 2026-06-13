@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="Images/hl-favicon.svg">
 <title>Projects — Haotian Lu</title>
 <link rel="stylesheet" href="shared.css">
 <style>
-.filter-bar {
-  display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 40px;
-}
+.filter-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 40px; }
 .filter-btn {
   font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em;
   text-transform: uppercase; padding: 7px 16px;
@@ -16,49 +15,97 @@
   color: var(--text-body); cursor: pointer; transition: all 0.18s;
   font-family: 'DM Sans', sans-serif;
 }
-.filter-btn:hover, .filter-btn.active {
-  background: var(--navy); color: var(--gold); border-color: var(--navy);
-}
+.filter-btn:hover, .filter-btn.active { background: var(--navy); color: var(--gold); border-color: var(--navy); }
 
+/* ── CARD GRID ── */
 .projects-full {
   display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 1px; background: rgba(184,151,90,0.12);
-  border: 1px solid rgba(184,151,90,0.12);
-}
-.pcard {
-  background: var(--white); padding: 36px 30px;
-  transition: all 0.22s; position: relative; overflow: hidden;
-  display: flex; flex-direction: column;
-}
-.pcard::after {
-  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
-  background: var(--gold); transform: scaleX(0); transition: transform 0.3s; transform-origin: left;
-}
-.pcard:hover::after { transform: scaleX(1); }
-.pcard:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(10,22,40,0.09); background: #fafaf8; }
-.pcard-arrow { position: absolute; top: 26px; right: 26px; color: var(--gold); opacity: 0; transition: all 0.2s; font-size: 1rem; }
-.pcard:hover .pcard-arrow { opacity: 1; transform: translate(2px,-2px); }
-.pcard-body { flex: 1; }
-.pcard-tech { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 16px; }
-.pcard-impact {
-  margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(10,22,40,0.07);
-  font-size: 0.78rem; color: var(--gold); font-style: italic;
+  gap: 20px;
 }
 
-/* featured project — spans 2 cols */
-.pcard.wide { grid-column: span 2; flex-direction: row; gap: 32px; align-items: center; }
-.pcard.wide .pcard-visual {
-  width: 200px; flex-shrink: 0; aspect-ratio: 1;
-  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 3.5rem; opacity: 0.9;
+/* ── EACH CARD ── */
+.pcard {
+  background: var(--white);
+  border: 1px solid rgba(10,22,40,0.08);
+  display: flex; flex-direction: column;
+  text-decoration: none; color: inherit;
+  transition: all 0.22s; position: relative; overflow: hidden;
+  cursor: pointer;
 }
-.pcard.wide .pcard-body { flex: 1; }
+.pcard:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(10,22,40,0.12); border-color: rgba(184,151,90,0.3); }
+
+/* thumbnail */
+.pcard-thumb {
+  width: 100%; aspect-ratio: 16/9;
+  background: var(--navy-light);
+  overflow: hidden; position: relative; flex-shrink: 0;
+}
+.pcard-thumb img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.4s ease;
+}
+.pcard:hover .pcard-thumb img { transform: scale(1.04); }
+
+/* placeholder thumb when no image */
+.pcard-thumb-placeholder {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.8rem;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+}
+
+/* category badge on thumb */
+.pcard-badge {
+  position: absolute; top: 12px; left: 12px;
+  background: var(--gold); color: var(--navy);
+  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; padding: 3px 8px;
+}
+
+/* arrow */
+.pcard-arrow {
+  position: absolute; top: 12px; right: 12px;
+  width: 28px; height: 28px; background: rgba(10,22,40,0.6);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold); font-size: 0.85rem;
+  opacity: 0; transition: opacity 0.2s;
+}
+.pcard:hover .pcard-arrow { opacity: 1; }
+
+/* body */
+.pcard-body { padding: 22px 22px 14px; flex: 1; display: flex; flex-direction: column; }
+.pcard-tag { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; display: block; }
+.pcard-title { font-family: 'Playfair Display', serif; font-size: 1.02rem; font-weight: 600; color: var(--navy); line-height: 1.3; margin-bottom: 8px; }
+.pcard-desc { font-size: 0.82rem; line-height: 1.58; color: var(--text-body); flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* footer of card */
+.pcard-foot {
+  padding: 12px 22px 16px;
+  border-top: 1px solid rgba(10,22,40,0.06);
+  display: flex; flex-wrap: wrap; gap: 5px;
+}
+.tech-tag { font-size: 0.6rem; letter-spacing: 0.07em; padding: 3px 8px; border: 1px solid rgba(10,22,40,0.13); color: #6a7888; text-transform: uppercase; display: inline-block; }
+
+/* impact line */
+.pcard-impact {
+  padding: 8px 22px 14px;
+  font-size: 0.75rem; color: var(--gold); font-style: italic;
+}
+
+/* wide featured card */
+.pcard.wide {
+  grid-column: span 2;
+  flex-direction: row;
+}
+.pcard.wide .pcard-thumb {
+  width: 280px; flex-shrink: 0; aspect-ratio: auto; height: auto;
+}
+.pcard.wide .pcard-content { display: flex; flex-direction: column; flex: 1; }
 
 @media (max-width: 768px) {
   .projects-full { grid-template-columns: 1fr; }
   .pcard.wide { flex-direction: column; grid-column: span 1; }
-  .pcard.wide .pcard-visual { width: 100%; aspect-ratio: 16/7; }
+  .pcard.wide .pcard-thumb { width: 100%; aspect-ratio: 16/9; height: auto; }
 }
 @media (min-width: 769px) and (max-width: 1024px) {
   .projects-full { grid-template-columns: repeat(2, 1fr); }
@@ -89,7 +136,7 @@
   <div class="page-banner-inner">
     <div class="page-banner-label">Portfolio</div>
     <h1>Projects &amp; Research</h1>
-    <p>A curated selection of data science, quantitative finance, and AI initiatives — from research prototypes to production systems serving real users.</p>
+    <p>A curated selection of data science, quantitative finance, and AI initiatives — from research prototypes to production systems.</p>
   </div>
 </div>
 
@@ -106,124 +153,180 @@
 
     <div class="projects-full reveal" data-stagger id="projectGrid">
 
-      <!-- Featured wide card -->
-      <div class="pcard wide" data-cat="ml finance">
-        <div class="pcard-visual">📊</div>
-        <div class="pcard-body">
-          <span class="card-tag">Machine Learning · Finance · Featured</span>
-          <div class="card-title" style="font-size:1.35rem;">Equity Return Prediction Model</div>
-          <p class="card-desc">Multi-factor ML model integrating alternative data sources (satellite imagery, NLP sentiment) with traditional financial signals to forecast 30-day equity returns across 2,000+ listed equities. Achieved Sharpe ratio improvement of 0.4 over baseline.</p>
-          <div class="pcard-tech">
-            <span class="tech-tag">Python</span><span class="tech-tag">XGBoost</span><span class="tech-tag">NLP</span><span class="tech-tag">AWS SageMaker</span><span class="tech-tag">Pandas</span>
-          </div>
-          <div class="pcard-impact">↑ 0.4 Sharpe improvement · 2,000+ equities covered · Live since 2023</div>
-        </div>
-        <div class="pcard-arrow">↗</div>
-      </div>
+      <!-- ══════════════════════════════════════════
+           HOW TO ADD A NEW PROJECT:
+           Copy one <a class="pcard"> block below,
+           paste it at the top of this grid,
+           fill in the 6 fields marked with ★
+           Full guide: projects/HOWTO.md
+      ══════════════════════════════════════════ -->
 
-      <div class="pcard" data-cat="data finance">
-        <div class="pcard-body">
-          <span class="card-tag">Data Engineering · Analytics</span>
-          <div class="card-title">Real-Time Portfolio Dashboard</div>
-          <p class="card-desc">End-to-end pipeline ingesting live market feeds, computing risk metrics, and rendering an interactive analytics dashboard for portfolio managers.</p>
-          <div class="pcard-tech">
-            <span class="tech-tag">Kafka</span><span class="tech-tag">Spark</span><span class="tech-tag">Tableau</span><span class="tech-tag">PostgreSQL</span>
-          </div>
-          <div class="pcard-impact">↓ 70% reporting latency · Used daily by 12 PMs</div>
+      <!-- ★ FEATURED: OnlyRainsOnWeekends -->
+      <a class="pcard wide" href="projects/only-rains-on-weekends.html" data-cat="data web">
+        <div class="pcard-thumb">
+          <!-- ★ Replace with: <img src="../Images/projects/onlyrains-thumb.jpg" alt="OnlyRainsOnWeekends"> -->
+          <div class="pcard-thumb-placeholder">🌧️</div>
+          <div class="pcard-badge">Featured</div>
+          <div class="pcard-arrow">↗</div>
         </div>
-        <div class="pcard-arrow">↗</div>
-      </div>
-
-      <div class="pcard" data-cat="ai">
-        <div class="pcard-body">
-          <span class="card-tag">AI · LLM · Automation</span>
-          <div class="card-title">LLM-Powered Research Agent</div>
-          <p class="card-desc">Autonomous AI agent that ingests earnings calls, SEC filings, and news, then generates structured investment research summaries with cited sources.</p>
-          <div class="pcard-tech">
-            <span class="tech-tag">LangChain</span><span class="tech-tag">OpenAI</span><span class="tech-tag">RAG</span><span class="tech-tag">FastAPI</span>
-          </div>
-          <div class="pcard-impact">↓ 4hrs analyst time per report · 95% citation accuracy</div>
-        </div>
-        <div class="pcard-arrow">↗</div>
-      </div>
-
-      <div class="pcard" data-cat="data">
-        <div class="pcard-body">
-          <span class="card-tag">Data Management · Governance</span>
-          <div class="card-title">Enterprise Data Governance Framework</div>
-          <p class="card-desc">Designed and implemented a metadata management and data lineage system for a mid-size financial services firm, reducing data quality incidents by 60%.</p>
-          <div class="pcard-tech">
-            <span class="tech-tag">dbt</span><span class="tech-tag">Snowflake</span><span class="tech-tag">DataHub</span><span class="tech-tag">Airflow</span>
-          </div>
-          <div class="pcard-impact">↓ 60% data quality incidents · 200+ datasets catalogued</div>
-        </div>
-        <div class="pcard-arrow">↗</div>
-      </div>
-
-      <div class="pcard" data-cat="ml ai finance">
-        <div class="pcard-body">
-          <span class="card-tag">NLP · Risk Analytics</span>
-          <div class="card-title">Sentiment-Driven Risk Monitor</div>
-          <p class="card-desc">News and social media sentiment engine flagging emerging credit risk signals hours before traditional rating changes, integrated with existing risk systems.</p>
-          <div class="pcard-tech">
-            <span class="tech-tag">FinBERT</span><span class="tech-tag">BERT</span><span class="tech-tag">FastAPI</span><span class="tech-tag">Redis</span>
-          </div>
-          <div class="pcard-impact">↑ 6hr early-warning lead · 82% precision on credit events</div>
-        </div>
-        <div class="pcard-arrow">↗</div>
-      </div>
-
-      <div class="pcard" data-cat="data web">
-        <div class="pcard-body">
-          <span class="card-tag">Data Product · Weekend-pattern scoring</span>
-          <div class="card-title"><a href="https://onlyrainsonweekends.com" target="_blank" class="title-link">OnlyRainOnWeekends — Weather Pattern Ranking Engine<a></div>
-          <p class="card-desc">Data-driven platform that ranks cities based on historical weekend-only rainfall patterns, helping users find “perfect weekend weather” destinations.</p>
-          <div class="pcard-tech">
-            <span class="tech-tag">HTML</span><span class="tech-tag">Javascript</span><span class="tech-tag">SQL</span><span class="tech-tag">Open-meteo API</span>
+        <div class="pcard-content">
+          <div class="pcard-body">
+            <span class="pcard-tag">Data Product · Weather Analytics</span>
+            <div class="pcard-title">OnlyRainsOnWeekends — Weather Pattern Ranking Engine</div>
+            <p class="pcard-desc">Data-driven platform that ranks cities based on historical weekend-only rainfall patterns, helping users find "perfect weekend weather" destinations. Analyzed 140+ cities using Open-Meteo historical API with custom weekend-bias scoring.</p>
           </div>
           <div class="pcard-impact">140+ cities analyzed · Historical weather bias detection</div>
-        </div>
-        <div class="pcard-arrow">↗</div>
-      </div>
-
-      <div class="pcard" data-cat="ml finance">
-        <div class="pcard-body">
-          <span class="card-tag">Machine Learning · Credit</span>
-          <div class="card-title">Credit Scoring &amp; Fraud Detection</div>
-          <p class="card-desc">Gradient-boosted credit scoring and real-time fraud detection models for a P2P lending platform serving 500K+ users.</p>
-          <div class="pcard-tech">
-            <span class="tech-tag">LightGBM</span><span class="tech-tag">Scikit-learn</span><span class="tech-tag">Spark</span><span class="tech-tag">MySQL</span>
+          <div class="pcard-foot">
+            <span class="tech-tag">HTML</span><span class="tech-tag">JavaScript</span><span class="tech-tag">SQL</span><span class="tech-tag">Open-Meteo API</span>
           </div>
-          <div class="pcard-impact">↓ 40% false positives · $2M+ fraud prevented annually</div>
         </div>
-        <div class="pcard-arrow">↗</div>
-      </div>
+      </a>
 
-      <div class="pcard" data-cat="ai web">
-        <div class="pcard-body">
-          <span class="card-tag">Web · Productivity Tool</span>
-          <div class="card-title"><a href="https://htean.github.io/my-navigator/" target="_blank" class="title-link">My Navigator — Personal Web Dashboard<a></div>
-          <p class="card-desc">Custom personal dashboard that allows users to save, organize, and instantly access frequently used websites through a clean, structured interface.</p>
-          <div class="pcard-tech">
-            <span class="tech-tag">HTML</span><span class="tech-tag">Superbase</span>
-          </div>
-          <div class="pcard-impact">Custom tagging system · Minimalist productivity layout</div>
+      <!-- ★ My Navigator -->
+      <a class="pcard" href="projects/my-navigator.html" data-cat="ai web">
+        <div class="pcard-thumb">
+          <!-- ★ Replace with: <img src="../Images/projects/navigator-thumb.jpg" alt="My Navigator"> -->
+          <div class="pcard-thumb-placeholder">🧭</div>
+          <div class="pcard-badge">Web Tool</div>
+          <div class="pcard-arrow">↗</div>
         </div>
-        <div class="pcard-arrow">↗</div>
-      </div>
+        <div class="pcard-body">
+          <span class="pcard-tag">Web · Productivity Tool</span>
+          <div class="pcard-title">My Navigator — Personal Web Dashboard</div>
+          <p class="pcard-desc">Custom personal dashboard to save, organize, and instantly access frequently used websites through a clean, structured interface with custom tagging.</p>
+        </div>
+        <div class="pcard-impact">Custom tagging · Minimalist productivity layout</div>
+        <div class="pcard-foot">
+          <span class="tech-tag">HTML</span><span class="tech-tag">Supabase</span>
+        </div>
+      </a>
 
-      <div class="pcard" data-cat="web">
-        <div class="pcard-body">
-          <span class="card-tag">Web · E-commerce Platforms</span>
-          <div class="card-title"><a href="https://elan-tea.com" target="_blank" class="title-link">Elan Tea - Online Retail Stores<a></div>
-          <p class="card-desc">E-commerce websites focused on product discovery and brand storytelling, supporting browsing, product detail pages, and streamlined purchasing flows.</p>
-          <div class="pcard-tech">
-            <span class="tech-tag">Stripe</span><span class="tech-tag">Node.js</span><span class="tech-tag">SQL</span>
-          </div>
-          <div class="pcard-impact">Brand-focused UX · Conversion-optimized landing pages</div>
+      <!-- ★ Elan Tea -->
+      <a class="pcard" href="projects/elan-tea.html" data-cat="web">
+        <div class="pcard-thumb">
+          <!-- ★ Replace with: <img src="../Images/projects/elantea-thumb.jpg" alt="Elan Tea"> -->
+          <div class="pcard-thumb-placeholder">🍵</div>
+          <div class="pcard-badge">E-commerce</div>
+          <div class="pcard-arrow">↗</div>
         </div>
-        <div class="pcard-arrow">↗</div>
-      </div>
+        <div class="pcard-body">
+          <span class="pcard-tag">Web · E-commerce</span>
+          <div class="pcard-title">Elan Tea — Online Retail Store</div>
+          <p class="pcard-desc">E-commerce website focused on product discovery and brand storytelling, supporting browsing, product detail pages, and streamlined purchasing flows.</p>
+        </div>
+        <div class="pcard-impact">Brand-focused UX · Conversion-optimized landing pages</div>
+        <div class="pcard-foot">
+          <span class="tech-tag">Stripe</span><span class="tech-tag">Node.js</span><span class="tech-tag">SQL</span>
+        </div>
+      </a>
+
+      <!-- Equity Return Model -->
+      <a class="pcard" href="projects/equity-return-model.html" data-cat="ml finance">
+        <div class="pcard-thumb">
+          <div class="pcard-thumb-placeholder">📊</div>
+          <div class="pcard-badge">ML · Finance</div>
+          <div class="pcard-arrow">↗</div>
+        </div>
+        <div class="pcard-body">
+          <span class="pcard-tag">Machine Learning · Finance</span>
+          <div class="pcard-title">Equity Return Prediction Model</div>
+          <p class="pcard-desc">Multi-factor ML model integrating alternative data (satellite imagery, NLP sentiment) with traditional financial signals to forecast 30-day equity returns across 2,000+ equities.</p>
+        </div>
+        <div class="pcard-impact">↑ 0.4 Sharpe improvement · 2,000+ equities covered</div>
+        <div class="pcard-foot">
+          <span class="tech-tag">Python</span><span class="tech-tag">XGBoost</span><span class="tech-tag">NLP</span><span class="tech-tag">AWS SageMaker</span>
+        </div>
+      </a>
+
+      <!-- Portfolio Dashboard -->
+      <a class="pcard" href="projects/portfolio-dashboard.html" data-cat="data finance">
+        <div class="pcard-thumb">
+          <div class="pcard-thumb-placeholder">📈</div>
+          <div class="pcard-badge">Data Engineering</div>
+          <div class="pcard-arrow">↗</div>
+        </div>
+        <div class="pcard-body">
+          <span class="pcard-tag">Data Engineering · Analytics</span>
+          <div class="pcard-title">Real-Time Portfolio Dashboard</div>
+          <p class="pcard-desc">End-to-end pipeline ingesting live market feeds, computing risk metrics, and rendering an interactive analytics dashboard for portfolio managers.</p>
+        </div>
+        <div class="pcard-impact">↓ 70% reporting latency · Used daily by 12 PMs</div>
+        <div class="pcard-foot">
+          <span class="tech-tag">Kafka</span><span class="tech-tag">Spark</span><span class="tech-tag">Tableau</span><span class="tech-tag">PostgreSQL</span>
+        </div>
+      </a>
+
+      <!-- LLM Research Agent -->
+      <a class="pcard" href="projects/llm-research-agent.html" data-cat="ai">
+        <div class="pcard-thumb">
+          <div class="pcard-thumb-placeholder">🤖</div>
+          <div class="pcard-badge">AI · LLM</div>
+          <div class="pcard-arrow">↗</div>
+        </div>
+        <div class="pcard-body">
+          <span class="pcard-tag">AI · LLM · Automation</span>
+          <div class="pcard-title">LLM-Powered Research Agent</div>
+          <p class="pcard-desc">Autonomous AI agent that ingests earnings calls, SEC filings, and news to generate structured investment research summaries with cited sources.</p>
+        </div>
+        <div class="pcard-impact">↓ 4hrs analyst time per report · 95% citation accuracy</div>
+        <div class="pcard-foot">
+          <span class="tech-tag">LangChain</span><span class="tech-tag">OpenAI</span><span class="tech-tag">RAG</span><span class="tech-tag">FastAPI</span>
+        </div>
+      </a>
+
+      <!-- Credit Scoring -->
+      <a class="pcard" href="projects/credit-scoring.html" data-cat="ml finance">
+        <div class="pcard-thumb">
+          <div class="pcard-thumb-placeholder">🏦</div>
+          <div class="pcard-badge">ML · Credit</div>
+          <div class="pcard-arrow">↗</div>
+        </div>
+        <div class="pcard-body">
+          <span class="pcard-tag">Machine Learning · Credit</span>
+          <div class="pcard-title">Credit Scoring &amp; Fraud Detection</div>
+          <p class="pcard-desc">Gradient-boosted credit scoring and real-time fraud detection models for a P2P lending platform serving 500K+ users.</p>
+        </div>
+        <div class="pcard-impact">↓ 40% false positives · $2M+ fraud prevented annually</div>
+        <div class="pcard-foot">
+          <span class="tech-tag">LightGBM</span><span class="tech-tag">Scikit-learn</span><span class="tech-tag">Spark</span><span class="tech-tag">MySQL</span>
+        </div>
+      </a>
+
+      <!-- Data Governance -->
+      <a class="pcard" href="projects/data-governance.html" data-cat="data">
+        <div class="pcard-thumb">
+          <div class="pcard-thumb-placeholder">🗄️</div>
+          <div class="pcard-badge">Data Management</div>
+          <div class="pcard-arrow">↗</div>
+        </div>
+        <div class="pcard-body">
+          <span class="pcard-tag">Data Management · Governance</span>
+          <div class="pcard-title">Enterprise Data Governance Framework</div>
+          <p class="pcard-desc">Metadata management and data lineage system for a mid-size financial services firm, reducing data quality incidents by 60%.</p>
+        </div>
+        <div class="pcard-impact">↓ 60% data quality incidents · 200+ datasets catalogued</div>
+        <div class="pcard-foot">
+          <span class="tech-tag">dbt</span><span class="tech-tag">Snowflake</span><span class="tech-tag">DataHub</span><span class="tech-tag">Airflow</span>
+        </div>
+      </a>
+
+      <!-- Sentiment Risk Monitor -->
+      <a class="pcard" href="projects/sentiment-risk-monitor.html" data-cat="ml ai finance">
+        <div class="pcard-thumb">
+          <div class="pcard-thumb-placeholder">📰</div>
+          <div class="pcard-badge">NLP · Risk</div>
+          <div class="pcard-arrow">↗</div>
+        </div>
+        <div class="pcard-body">
+          <span class="pcard-tag">NLP · Risk Analytics</span>
+          <div class="pcard-title">Sentiment-Driven Risk Monitor</div>
+          <p class="pcard-desc">News and social media sentiment engine flagging emerging credit risk signals hours before traditional rating changes.</p>
+        </div>
+        <div class="pcard-impact">↑ 6hr early-warning lead · 82% precision on credit events</div>
+        <div class="pcard-foot">
+          <span class="tech-tag">FinBERT</span><span class="tech-tag">BERT</span><span class="tech-tag">FastAPI</span><span class="tech-tag">Redis</span>
+        </div>
+      </a>
 
     </div>
   </div>
