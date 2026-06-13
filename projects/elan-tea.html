@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../Images/hl-favicon.svg">
+<title>Elan Tea — Haotian Lu</title>
+<link rel="stylesheet" href="../shared.css">
+<link rel="stylesheet" href="project-detail.css">
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="nav-logo">H<span>.</span>Lu</a>
+  <ul class="nav-links">
+    <li><a href="../projects.html">Projects</a></li>
+    <li><a href="../about.html">About</a></li>
+    <li><a href="../solutions.html">Solutions</a></li>
+    <li><a href="../insights.html">Insights</a></li>
+    <li><a href="../beyond.html">Off the Clock</a></li>
+    <li><a href="../contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile-menu" id="navMobile">
+  <a href="../projects.html">Projects</a><a href="../about.html">About</a>
+  <a href="../solutions.html">Solutions</a><a href="../insights.html">Insights</a>
+  <a href="../beyond.html">Off the Clock</a><a href="../contact.html" class="mob-cta">Contact</a>
+</div>
+
+<div class="article-hero">
+  <div class="article-hero-placeholder" style="background:linear-gradient(135deg,#0d1a0a 0%,#1a3312 60%,#0a1628 100%);">🍵</div>
+</div>
+
+<section style="background:var(--white);padding-top:0;">
+  <div class="container">
+    <div class="article-layout">
+
+      <div class="article-body">
+        <a href="../projects.html" class="back-link">All Projects</a>
+        <div class="article-meta-row">
+          <span class="article-tag">Web · E-commerce</span>
+          <span class="article-date">2024</span>
+          <span class="article-readtime">3 min read</span>
+        </div>
+        <h1 class="article-h1">Elan Tea — Online Retail Store</h1>
+        <p class="article-lead">A brand-first e-commerce experience for a specialty tea company — built to make product discovery feel elegant and purchasing feel effortless.</p>
+
+        <h2>The Brief</h2>
+        <p>Elan Tea needed more than a storefront — they needed a brand platform. The challenge was balancing visual storytelling (artisan products, origin stories, ceremony) with a conversion-optimized shopping experience. Too much editorial and you lose buyers; too transactional and you lose the brand.</p>
+
+        <figure class="article-img">
+          <img src="../Images/projects/elantea-screenshot.jpg" alt="Elan Tea homepage" onerror="this.parentElement.style.display='none'">
+          <figcaption>The Elan Tea homepage — brand storytelling meets streamlined e-commerce</figcaption>
+        </figure>
+
+        <h2>What I Built</h2>
+        <p>A full e-commerce site featuring a brand-focused landing page, product catalogue with rich detail pages, and a streamlined checkout flow powered by <a href="https://stripe.com" target="_blank">Stripe</a>. Product data is managed through a lightweight SQL backend so the client can update inventory without touching code.</p>
+
+        <figure class="article-img half">
+          <div>
+            <img src="../Images/projects/elantea-product.jpg" alt="Product page" onerror="this.style.display='none'">
+          </div>
+          <div>
+            <img src="../Images/projects/elantea-checkout.jpg" alt="Checkout flow" onerror="this.style.display='none'">
+          </div>
+        </figure>
+
+        <h2>Technical Approach</h2>
+        <p>The stack prioritizes reliability and simplicity over complexity. Node.js handles the backend API and order management; Stripe processes payments securely without storing card data server-side. The frontend is server-rendered for fast initial load and good SEO, critical for an e-commerce brand building organic traffic.</p>
+
+        <div class="tech-stack">
+          <span class="tech-chip">HTML / CSS / JS</span>
+          <span class="tech-chip">Node.js</span>
+          <span class="tech-chip">SQL</span>
+          <span class="tech-chip">Stripe</span>
+        </div>
+
+        <div class="metrics-row">
+          <div class="metric"><div class="metric-num">Fast</div><div class="metric-label">Load Performance</div></div>
+          <div class="metric"><div class="metric-num">Stripe</div><div class="metric-label">Secure Payments</div></div>
+          <div class="metric"><div class="metric-num">CMS</div><div class="metric-label">Client-Managed Inventory</div></div>
+        </div>
+
+        <h2>Reflections</h2>
+        <p>The most interesting design challenge was the product page — making a simple item like loose-leaf tea feel worth $30 through photography, origin narrative, and brewing guides. Conversion follows when the product feels worth it, not just when the checkout is fast.</p>
+
+        <a href="https://elan-tea.com" target="_blank" class="live-btn">View Live Site ↗</a>
+        <a href="../contact.html" class="live-btn outline">Build Something Similar →</a>
+
+        <div class="project-nav">
+          <a href="my-navigator.html">
+            <div class="pnav-label">← Previous</div>
+            <div class="pnav-title">My Navigator Dashboard</div>
+          </a>
+          <a href="only-rains-on-weekends.html">
+            <div class="pnav-label">Next →</div>
+            <div class="pnav-title">OnlyRainsOnWeekends</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="article-sidebar reveal">
+        <div class="sidebar-box">
+          <div class="sidebar-box-title">At a Glance</div>
+          <p><strong>Type:</strong> E-commerce Website<br>
+          <strong>Year:</strong> 2024<br>
+          <strong>Status:</strong> Live<br>
+          <strong>Role:</strong> Solo — Design, Dev, Deployment</p>
+        </div>
+        <div class="sidebar-box">
+          <div class="sidebar-box-title">Tech Stack</div>
+          <div class="sidebar-tech">
+            <span class="sidebar-tag">HTML/CSS/JS</span>
+            <span class="sidebar-tag">Node.js</span>
+            <span class="sidebar-tag">SQL</span>
+            <span class="sidebar-tag">Stripe</span>
+          </div>
+        </div>
+        <div class="sidebar-box">
+          <div class="sidebar-box-title">Links</div>
+          <p><a href="https://elan-tea.com" target="_blank">Live Site ↗</a></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="../index.html" class="footer-logo">Haotian <span>Lu</span></a>
+  <div class="footer-copy">© 2025 Haotian Lu. All rights reserved.</div>
+  <div class="footer-social"><a href="#">in</a><a href="#">gh</a><a href="#">✉</a></div>
+</footer>
+<script src="../nav.js"></script>
+</body>
+</html>

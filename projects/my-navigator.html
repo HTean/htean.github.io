@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../Images/hl-favicon.svg">
+<title>My Navigator — Haotian Lu</title>
+<link rel="stylesheet" href="../shared.css">
+<link rel="stylesheet" href="project-detail.css">
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="nav-logo">H<span>.</span>Lu</a>
+  <ul class="nav-links">
+    <li><a href="../projects.html">Projects</a></li>
+    <li><a href="../about.html">About</a></li>
+    <li><a href="../solutions.html">Solutions</a></li>
+    <li><a href="../insights.html">Insights</a></li>
+    <li><a href="../beyond.html">Off the Clock</a></li>
+    <li><a href="../contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile-menu" id="navMobile">
+  <a href="../projects.html">Projects</a><a href="../about.html">About</a>
+  <a href="../solutions.html">Solutions</a><a href="../insights.html">Insights</a>
+  <a href="../beyond.html">Off the Clock</a><a href="../contact.html" class="mob-cta">Contact</a>
+</div>
+
+<div class="article-hero">
+  <div class="article-hero-placeholder" style="background:linear-gradient(135deg,#0a1628 0%,#1a2f50 100%);">🧭</div>
+</div>
+
+<section style="background:var(--white);padding-top:0;">
+  <div class="container">
+    <div class="article-layout">
+
+      <div class="article-body">
+        <a href="../projects.html" class="back-link">All Projects</a>
+        <div class="article-meta-row">
+          <span class="article-tag">Web · Productivity Tool</span>
+          <span class="article-date">2024</span>
+          <span class="article-readtime">3 min read</span>
+        </div>
+        <h1 class="article-h1">My Navigator — Personal Web Dashboard</h1>
+        <p class="article-lead">A minimalist personal dashboard for organizing and instantly accessing your most-used websites — built because bookmark folders are a mess and browser tabs are chaos.</p>
+
+        <h2>The Problem</h2>
+        <p>Power users — developers, analysts, researchers — tend to accumulate dozens of essential but disparate tools: internal dashboards, APIs, documentation pages, client portals, and reference sites. Bookmark managers are cluttered. New-tab extensions feel bloated. I wanted something clean, fast, and entirely mine.</p>
+
+        <figure class="article-img">
+          <img src="../Images/projects/navigator-screenshot.jpg" alt="My Navigator dashboard" onerror="this.parentElement.style.display='none'">
+          <figcaption>The navigator dashboard — organized links with custom tags and instant search</figcaption>
+        </figure>
+
+        <h2>What I Built</h2>
+        <p>My Navigator is a personal browser dashboard — a custom new-tab replacement that lets you save, categorize, and search websites using a clean card-based layout. Links are stored persistently via <a href="https://supabase.com" target="_blank">Supabase</a> so they sync across devices and survive browser resets.</p>
+        <p>The interface is deliberately minimal: no icons, no ads, no noise — just your links, organized the way you want them, accessible in one click.</p>
+
+        <h2>Technical Approach</h2>
+        <p>Built as a pure frontend HTML/CSS/JS app with Supabase as the backend database layer. Authentication is handled via Supabase's built-in auth so the dashboard is private. A lightweight tag system allows flexible categorization without a complex UI.</p>
+
+        <div class="tech-stack">
+          <span class="tech-chip">HTML / CSS / JS</span>
+          <span class="tech-chip">Supabase</span>
+          <span class="tech-chip">PostgreSQL</span>
+        </div>
+
+        <div class="metrics-row">
+          <div class="metric"><div class="metric-num">1-click</div><div class="metric-label">Access to any link</div></div>
+          <div class="metric"><div class="metric-num">Custom</div><div class="metric-label">Tagging system</div></div>
+          <div class="metric"><div class="metric-num">Synced</div><div class="metric-label">Across devices</div></div>
+        </div>
+
+        <h2>Reflections</h2>
+        <p>This is one of those tools I use every single day. The constraint of "no frameworks, no build step" forced clean, readable code and made the page load near-instantly. I'd eventually like to add shared workspaces so teams can maintain a shared link library.</p>
+
+        <a href="https://htean.github.io/my-navigator/" target="_blank" class="live-btn">View Live Site ↗</a>
+        <a href="../contact.html" class="live-btn outline">Work With Me →</a>
+
+        <div class="project-nav">
+          <a href="only-rains-on-weekends.html">
+            <div class="pnav-label">← Previous</div>
+            <div class="pnav-title">OnlyRainsOnWeekends</div>
+          </a>
+          <a href="elan-tea.html">
+            <div class="pnav-label">Next →</div>
+            <div class="pnav-title">Elan Tea — Online Retail Store</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="article-sidebar reveal">
+        <div class="sidebar-box">
+          <div class="sidebar-box-title">At a Glance</div>
+          <p><strong>Type:</strong> Web App / Productivity Tool<br>
+          <strong>Year:</strong> 2024<br>
+          <strong>Status:</strong> Live<br>
+          <strong>Role:</strong> Solo — Design &amp; Dev</p>
+        </div>
+        <div class="sidebar-box">
+          <div class="sidebar-box-title">Tech Stack</div>
+          <div class="sidebar-tech">
+            <span class="sidebar-tag">HTML/CSS/JS</span>
+            <span class="sidebar-tag">Supabase</span>
+            <span class="sidebar-tag">PostgreSQL</span>
+          </div>
+        </div>
+        <div class="sidebar-box">
+          <div class="sidebar-box-title">Links</div>
+          <p><a href="https://htean.github.io/my-navigator/" target="_blank">Live Site ↗</a></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="../index.html" class="footer-logo">Haotian <span>Lu</span></a>
+  <div class="footer-copy">© 2025 Haotian Lu. All rights reserved.</div>
+  <div class="footer-social"><a href="#">in</a><a href="#">gh</a><a href="#">✉</a></div>
+</footer>
+<script src="../nav.js"></script>
+</body>
+</html>
