@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../Images/hl-favicon.svg">
+<title>OnlyRainsOnWeekends — Haotian Lu</title>
+<link rel="stylesheet" href="../shared.css">
+<link rel="stylesheet" href="project-detail.css">
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="nav-logo">H<span>.</span>Lu</a>
+  <ul class="nav-links">
+    <li><a href="../projects.html">Projects</a></li>
+    <li><a href="../about.html">About</a></li>
+    <li><a href="../solutions.html">Solutions</a></li>
+    <li><a href="../insights.html">Insights</a></li>
+    <li><a href="../beyond.html">Off the Clock</a></li>
+    <li><a href="../contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile-menu" id="navMobile">
+  <a href="../projects.html">Projects</a><a href="../about.html">About</a>
+  <a href="../solutions.html">Solutions</a><a href="../insights.html">Insights</a>
+  <a href="../beyond.html">Off the Clock</a><a href="../contact.html" class="mob-cta">Contact</a>
+</div>
+
+<div class="article-hero">
+  <!-- Replace with: <img src="../Images/projects/onlyrains-hero.jpg" alt="OnlyRainsOnWeekends"> -->
+  <div class="article-hero-placeholder" style="background:linear-gradient(135deg,#0a1628 0%,#1a3a5c 60%,#0d2a10 100%);">🌧️</div>
+</div>
+
+<section style="background:var(--white);padding-top:0;">
+  <div class="container">
+    <div class="article-layout">
+
+      <div class="article-body">
+        <a href="../projects.html" class="back-link">All Projects</a>
+        <div class="article-meta-row">
+          <span class="article-tag">Data Product · Weather Analytics</span>
+          <span class="article-date">2024</span>
+          <span class="article-readtime">4 min read</span>
+        </div>
+        <h1 class="article-h1">OnlyRainsOnWeekends — Weather Pattern Ranking Engine</h1>
+        <p class="article-lead">A data-driven platform that ranks cities by their tendency to rain specifically on weekends — built from curiosity, powered by historical weather APIs, and surprisingly useful for trip planning.</p>
+
+        <h2>The Problem</h2>
+        <p>Ever notice that it seems to rain more on weekends than weekdays? That nagging feeling — sometimes called the "weekend effect" — has been studied in atmospheric science and is partially real: human activity during the week can shift precipitation patterns toward weekend peaks in some regions.</p>
+        <p>I wanted to quantify this properly. Which cities actually have measurably worse weekend weather? Which have better? And can you build a tool that makes this useful for travelers and remote workers choosing where to spend their time?</p>
+
+        <!-- ★ Add your screenshot here -->
+        <figure class="article-img">
+          <img src="../Images/projects/onlyrains-screenshot.jpg" alt="OnlyRainsOnWeekends homepage" onerror="this.parentElement.style.display='none'">
+          <figcaption>The homepage ranking cities by their weekend rainfall bias score</figcaption>
+        </figure>
+
+        <h2>What I Built</h2>
+        <p>OnlyRainsOnWeekends is a web platform that pulls historical daily precipitation data from the <a href="https://open-meteo.com" target="_blank">Open-Meteo API</a> for 140+ cities worldwide, then calculates a "weekend bias score" — comparing average weekend rainfall against weekday rainfall over a multi-year window.</p>
+        <p>Cities are ranked and filterable by region, climate type, and season. The result is an interactive, data-driven reference for anyone planning where to work, travel, or live.</p>
+
+        <h2>Technical Approach</h2>
+        <p>The data pipeline fetches historical daily precipitation records for each city going back 5+ years, then classifies each day as weekend or weekday. A bias score is computed as the percentage difference between mean weekend and mean weekday precipitation, corrected for seasonal variance.</p>
+        <p>The frontend is intentionally lightweight — pure HTML, CSS, and vanilla JavaScript with no heavy frameworks, keeping load times fast for a globally accessed site. City data is pre-processed and cached as JSON so the UI is instant.</p>
+
+        <div class="tech-stack">
+          <span class="tech-chip">HTML / CSS / JS</span>
+          <span class="tech-chip">Open-Meteo API</span>
+          <span class="tech-chip">SQL</span>
+          <span class="tech-chip">Python (data processing)</span>
+        </div>
+
+        <h2>Results &amp; Impact</h2>
+        <div class="metrics-row">
+          <div class="metric"><div class="metric-num">140+</div><div class="metric-label">Cities Analyzed</div></div>
+          <div class="metric"><div class="metric-num">5yr</div><div class="metric-label">Historical Data Window</div></div>
+          <div class="metric"><div class="metric-num">Live</div><div class="metric-label">Status</div></div>
+        </div>
+
+        <h2>Reflections</h2>
+        <p>What started as a weekend curiosity project turned into a genuinely useful tool. The biggest technical challenge was normalizing rainfall patterns across vastly different climates — a 2mm difference means nothing in a tropical city but is significant in a desert region. Applying climate-relative scoring was the key insight that made the rankings meaningful.</p>
+        <p>Next steps: adding seasonal views and a "best month to visit" breakdown per city.</p>
+
+        <a href="https://onlyrainsonweekends.com" target="_blank" class="live-btn">View Live Site ↗</a>
+        <a href="../contact.html" class="live-btn outline">Work With Me →</a>
+
+        <div class="project-nav">
+          <a href="elan-tea.html">
+            <div class="pnav-label">← Previous</div>
+            <div class="pnav-title">Elan Tea — Online Retail Store</div>
+          </a>
+          <a href="my-navigator.html">
+            <div class="pnav-label">Next →</div>
+            <div class="pnav-title">My Navigator — Web Dashboard</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="article-sidebar reveal">
+        <div class="sidebar-box">
+          <div class="sidebar-box-title">At a Glance</div>
+          <p><strong>Type:</strong> Data Product / Web App<br>
+          <strong>Year:</strong> 2024<br>
+          <strong>Status:</strong> Live<br>
+          <strong>Role:</strong> Solo — Design, Data, Dev</p>
+        </div>
+        <div class="sidebar-box">
+          <div class="sidebar-box-title">Tech Stack</div>
+          <div class="sidebar-tech">
+            <span class="sidebar-tag">HTML/CSS/JS</span>
+            <span class="sidebar-tag">Open-Meteo API</span>
+            <span class="sidebar-tag">SQL</span>
+            <span class="sidebar-tag">Python</span>
+          </div>
+        </div>
+        <div class="sidebar-box">
+          <div class="sidebar-box-title">Links</div>
+          <p><a href="https://onlyrainsonweekends.com" target="_blank">Live Site ↗</a></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="../index.html" class="footer-logo">Haotian <span>Lu</span></a>
+  <div class="footer-copy">© 2025 Haotian Lu. All rights reserved.</div>
+  <div class="footer-social"><a href="#">in</a><a href="#">gh</a><a href="#">✉</a></div>
+</footer>
+<script src="../nav.js"></script>
+</body>
+</html>
